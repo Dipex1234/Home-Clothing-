@@ -1,0 +1,371 @@
+{% extends 'base.html'%}
+{% load static%}
+{% block content%}
+<!-- End of header area -->
+
+<!--breadcumb area start -->
+<div class="breadcumb-area overlay pos-rltv">
+    <div class="bread-main">
+        <div class="bred-hading text-center">
+            <h5>Order Details</h5></div>
+        <ol class="breadcrumb">
+            <li class="home"><a title="Go to Home Page" href="/">Home</a></li>
+            <li class="active">Complete Order</li>
+        </ol>
+    </div>
+</div>
+<!--breadcumb area end -->
+
+<!--cart-checkout-area start -->
+<div class="cart-checkout-area  pt-80 pt-70 " style="padding-top: 40px; padding-bottom: 70px;">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="product-area">
+                    <div class="title-tab-product-category row">
+                        <div class="col-lg-12 text-center pb-60">
+                            <!--                            <ul class="nav heading-style-3" role="tablist">-->
+                            <!--                                <li role="presentation"><a class="shadow-box" href="{% url 'cart' %}"-->
+                            <!--                                                           aria-controls="cart"-->
+                            <!--                                                           role="tab" data-bs-toggle="tab"><span>01</span>-->
+                            <!--                                    Shopping-->
+                            <!--                                    cart</a></li>-->
+                            <!--                                <li role="presentation"><a class="shadow-box" href="{% url 'checkout' %}"-->
+                            <!--                                                           aria-controls="checkout" role="tab"-->
+                            <!--                                                           data-bs-toggle="tab"><span>02</span>Checkout</a></li>-->
+                            <!--                                <li role="presentation"><a class="active shadow-box" href="{% url 'complete_order' order.id %}"-->
+                            <!--                                                           aria-controls="complete-order" role="tab"-->
+                            <!--                                                           data-bs-toggle="tab"><span>03</span>-->
+                            <!--                                    complete-order</a></li>-->
+                            <!--                            </ul>-->
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <!--                    <div class="content-tab-product-category pb-70">-->
+                    <!--                        &lt;!&ndash; Tab panes &ndash;&gt;-->
+                    <!--                        <div class="tab-content">-->
+                    <!--                            <div role="tabpanel" class="tab-pane  fade show active" id="cart">-->
+
+                    <!--                                &lt;!&ndash; cart are start&ndash;&gt;-->
+                    <!--                                <div class="cart-page-area">-->
+
+
+                    <!--                                    <div class="cart-bottom-area">-->
+                    <!--                                        <div class="row">-->
+                    <!--                                            <div class="col-lg-8 col-md-7">-->
+                    <!--                                                <div class="update-coupne-area">-->
+                    <!--                                                    <div class="update-continue-btn text-end pb-20">-->
+                    <!--                                                        &lt;!&ndash;                                                        <button class="btn-def btn2">Update Cart</button>&ndash;&gt;-->
+                    <!--                                                        <a href="{% url 'shop' %}" class="btn-def btn2">Continue-->
+                    <!--                                                            Shopping</a>-->
+                    <!--                                                    </div>-->
+
+                    <!--                                                </div>-->
+                    <!--                                            </div>-->
+
+                    <!--                                            <div class="col-lg-4 col-md-5">-->
+                    <!--                                                <div class="cart-total-area">-->
+
+                    <!--                                                    <div class="catagory-title cat-tit-5 mb-20 text-end">-->
+                    <!--                                                        <h3>Cart Totals</h3>-->
+                    <!--                                                    </div>-->
+                    <!--                                                    <div class="sub-shipping">-->
+                    <!--                                                        <p>Subtotal <span>₹{{ order.subtotal }}</span></p>-->
+                    <!--                                                        <p>Shipping <span>₹{{ order.shipping }}</span></p>-->
+                    <!--                                                    </div>-->
+
+                    <!--                                                    <div class="process-cart-total">-->
+                    <!--                                                        <p>Total <span>₹{{ order.total }}</span></p>-->
+                    <!--                                                    </div>-->
+
+                    <!--                                                </div>-->
+                    <!--                                            </div>-->
+                    <!--                                        </div>-->
+                    <!--                                    </div>-->
+
+                    <!--                                </div>-->
+                    <!--                                &lt;!&ndash; cart are end&ndash;&gt;-->
+                    <!--                            </div>-->
+                    <!--                            <div role="tabpanel" class="tab-pane  fade show active"  id="checkout">-->
+                    <!--                                &lt;!&ndash; Checkout are start&ndash;&gt;-->
+                    <!--                                <div class="checkout-area">-->
+                    <!--                                    <div class="">-->
+                    <!--                                        <div class="row">-->
+                    <!--                                            <div class="col-lg-12">-->
+                    <!--                                                <div class="coupne-customer-area mb50">-->
+                    <!--                                                    <div class="panel-group" id="accordion" role="tablist"-->
+                    <!--                                                         aria-multiselectable="true">-->
+                    <!--                                                        <div class="panel panel-checkout">-->
+                    <!--                                                            <div class="panel-heading" role="tab" id="headingTwo">-->
+                    <!--                                                                <h4 class="panel-title">-->
+                    <!--                                                                    <img src="{% static 'images/icons/acc.jpg' %}"-->
+                    <!--                                                                         alt="">-->
+                    <!--                                                                    Returning customer?-->
+                    <!--                                                                    <a class="collapsed" role="button"-->
+                    <!--                                                                       data-bs-toggle="collapse"-->
+                    <!--                                                                       data-bs-parent="#accordion"-->
+                    <!--                                                                       href="#collapseTwo" aria-expanded="false"-->
+                    <!--                                                                       aria-controls="collapseTwo">-->
+                    <!--                                                                        Click here to login-->
+                    <!--                                                                    </a>-->
+                    <!--                                                                </h4>-->
+                    <!--                                                            </div>-->
+                    <!--                                                            <div id="collapseTwo" class="panel-collapse collapse"-->
+                    <!--                                                                 role="tabpanel" aria-labelledby="headingTwo">-->
+                    <!--                                                                <div class="panel-body">-->
+                    <!--                                                                    <div class="sm-des pb20">-->
+                    <!--                                                                        If you have shopped with us before,-->
+                    <!--                                                                        please enter your details in the-->
+                    <!--                                                                        boxes-->
+                    <!--                                                                        below. If you are a new customer-->
+                    <!--                                                                        please-->
+                    <!--                                                                        proceed to the Billing & Shipping-->
+                    <!--                                                                        section.-->
+                    <!--                                                                    </div>-->
+                    <!--                                                                    <div class="first-last-area">-->
+                    <!--                                                                        <div class="input-box mtb-20">-->
+                    <!--                                                                            <label>User Name Or-->
+                    <!--                                                                                Email</label>-->
+                    <!--                                                                            <input type="email" placeholder="Your Email"-->
+                    <!--                                                                                   class="info" name="email">-->
+                    <!--                                                                        </div>-->
+                    <!--                                                                        <div class="input-box mb-20">-->
+                    <!--                                                                            <label>Password</label>-->
+                    <!--                                                                            <input type="password"-->
+                    <!--                                                                                   placeholder="Password" class="info"-->
+                    <!--                                                                                   name="padd">-->
+                    <!--                                                                        </div>-->
+                    <!--                                                                        <div class="frm-action cc-area">-->
+                    <!--                                                                            <div class="input-box tci-box">-->
+                    <!--                                                                                <a href="/"-->
+                    <!--                                                                                   class="btn-def btn2">Login</a>-->
+                    <!--                                                                            </div>-->
+                    <!--                                                                            <span>-->
+                    <!--                                                                                        <input type="checkbox"-->
+                    <!--                                                                                               class="remr">-->
+                    <!--                                                                                        Remember-->
+                    <!--                                                                                        me-->
+                    <!--                                                                                    </span>-->
+                    <!--                                                                            <a class="forgotten forg" href="/">Forgotten-->
+                    <!--                                                                                Password</a>-->
+                    <!--                                                                        </div>-->
+                    <!--                                                                    </div>-->
+                    <!--                                                                </div>-->
+                    <!--                                                            </div>-->
+                    <!--                                                        </div>-->
+                    <!--                                                        <div class="panel panel-checkout">-->
+                    <!--                                                            <div class="panel-heading" role="tab" id="headingThree">-->
+                    <!--                                                                <h4 class="panel-title">-->
+                    <!--                                                                    <img src="{% static 'images/icons/acc.jpg'%}"-->
+                    <!--                                                                         alt="">-->
+                    <!--                                                                    Have A Coupon?-->
+                    <!--                                                                    <a class="collapsed" role="button"-->
+                    <!--                                                                       data-bs-toggle="collapse"-->
+                    <!--                                                                       data-bs-parent="#accordion"-->
+                    <!--                                                                       href="#collapseThree" aria-expanded="false"-->
+                    <!--                                                                       aria-controls="collapseThree">-->
+                    <!--                                                                        Click here to enter your code-->
+                    <!--                                                                    </a>-->
+                    <!--                                                                </h4>-->
+                    <!--                                                            </div>-->
+                    <!--                                                            <div id="collapseThree" class="panel-collapse collapse"-->
+                    <!--                                                                 role="tabpanel" aria-labelledby="headingThree">-->
+                    <!--                                                                <div class="panel-body coupon-body">-->
+
+                    <!--                                                                    <div class="first-last-area">-->
+                    <!--                                                                        <div class="input-box mtb-20">-->
+                    <!--                                                                            <input type="text" placeholder="Coupon Code"-->
+                    <!--                                                                                   class="info" name="code">-->
+                    <!--                                                                        </div>-->
+                    <!--                                                                        <div class="frm-action">-->
+                    <!--                                                                            <div class="input-box tci-box">-->
+                    <!--                                                                                <a href="/" class="btn-def btn2">Apply-->
+                    <!--                                                                                    Coupon</a>-->
+                    <!--                                                                            </div>-->
+                    <!--                                                                        </div>-->
+                    <!--                                                                    </div>-->
+                    <!--                                                                </div>-->
+                    <!--                                                            </div>-->
+                    <!--                                                        </div>-->
+                    <!--                                                    </div>-->
+                    <!--                                                </div>-->
+                    <!--                                                <div class="row">-->
+                    <!--                                                    <div class="col-lg-6">-->
+                    <!--                                                        <div class="billing-details">-->
+                    <!--                                                            <div class="contact-text right-side">-->
+
+                    <!--                                                                <h2>Billing Details</h2>-->
+                    <!--                                                                &lt;!&ndash;                                                                <form action="#">&ndash;&gt;-->
+                    <!--                                                                <div class="row">-->
+
+                    <!--                                                                    <div class="col-lg-6 col-md-6">-->
+                    <!--                                                                        <div class="input-box mb-20">-->
+                    <!--                                                                            <label>First Name-->
+                    <!--                                                                                <em>*</em></label>-->
+                    <!--                                                                            <p>{{ order.first_name }}</p>-->
+                    <!--                                                                        </div>-->
+                    <!--                                                                    </div>-->
+
+                    <!--                                                                    <div class="col-lg-6 col-md-6">-->
+                    <!--                                                                        <div class="input-box mb-20">-->
+                    <!--                                                                            <label>Last-->
+                    <!--                                                                                Name<em>*</em></label>-->
+                    <!--                                                                            <p>{{ order.last_name }}</p>-->
+                    <!--                                                                        </div>-->
+                    <!--                                                                    </div>-->
+
+
+                    <!--                                                                    <div class="col-md-6">-->
+                    <!--                                                                        <div class="input-box mb-20">-->
+                    <!--                                                                            <label>Email-->
+                    <!--                                                                                Address<em>*</em></label>-->
+                    <!--                                                                            <p>{{ order.email }}</p>-->
+                    <!--                                                                        </div>-->
+                    <!--                                                                    </div>-->
+                    <!--                                                                    <div class="col-md-6">-->
+                    <!--                                                                        <div class="input-box mb-20">-->
+                    <!--                                                                            <label>Phone-->
+                    <!--                                                                                Number<em>*</em></label>-->
+                    <!--                                                                            <p>{{ order.phone }}</p>-->
+                    <!--                                                                        </div>-->
+                    <!--                                                                    </div>-->
+
+
+                    <!--                                                                    <div class="col-lg-12">-->
+                    <!--                                                                        <div class="input-box mb-20">-->
+                    <!--                                                                            <label>Address-->
+                    <!--                                                                                <em>*</em></label>-->
+                    <!--                                                                            <p>{{ order.address }}</p>-->
+                    <!--                                                                        </div>-->
+                    <!--                                                                    </div>-->
+                    <!--                                                                    <div class="col-lg-12">-->
+                    <!--                                                                        <div class="input-box mb-20">-->
+                    <!--                                                                            <label>Town/City-->
+                    <!--                                                                                <em>*</em></label>-->
+                    <!--                                                                            <p>{{ order.city }}</p>-->
+                    <!--                                                                        </div>-->
+                    <!--                                                                    </div>-->
+
+                    <!--                                                                    <div class="col-md-6">-->
+                    <!--                                                                        <div class="input-box">-->
+                    <!--                                                                            <label>State/Divison-->
+                    <!--                                                                                <em>*</em></label>-->
+                    <!--                                                                            <p>{{ order.state }}</p>-->
+                    <!--                                                                        </div>-->
+                    <!--                                                                    </div>-->
+                    <!--                                                                    <div class="col-md-6">-->
+                    <!--                                                                        <div class="input-box">-->
+                    <!--                                                                            <label>Post Code/Zip-->
+                    <!--                                                                                Code<em>*</em></label>-->
+                    <!--                                                                            <p>{{ order.zipcode }}</p>-->
+                    <!--                                                                        </div>-->
+                    <!--                                                                    </div>-->
+
+                    <!--                                                                    <div class="col-lg-12">-->
+                    <!--                                                                        <div class="input-box mb-20">-->
+                    <!--                                                                            <label>Payment Method</label>-->
+                    <!--                                                                            <p>{{ order.payment_method }}</p>-->
+                    <!--                                                                        </div>-->
+                    <!--                                                                    </div>-->
+
+
+                    <!--                                                                </div>-->
+
+                    <!--                                                            </div>-->
+                    <!--                                                        </div>-->
+                    <!--                                                    </div>-->
+                    <!--                                                    <div class="col-lg-6">-->
+                    <!--                                                        <div class="billing-details">-->
+                    <!--                                                            <div class="right-side">-->
+                    <!--                                                                <div class="ship-acc clearfix">-->
+                    <!--                                                                    <div class="ship-toggle pb20">-->
+                    <!--                                                                        <input type="checkbox" id="ship-toggle">-->
+                    <!--                                                                        <label for="ship-toggle">Ship to a-->
+                    <!--                                                                            different address?</label>-->
+                    <!--                                                                    </div>-->
+
+                    <!--                                                            </div>-->
+                    <!--                                                        </div>-->
+                    <!--                                                    </div>-->
+                    <!--                                                </div>-->
+                    <!--                                            </div>-->
+                    <!--                                        </div>-->
+                    <!--                                    </div>-->
+                    <!--                                </div>-->
+                    <!--                                &lt;!&ndash; Checkout are end&ndash;&gt;-->
+                    <!--                            </div>-->
+
+                    <!--                        </div>-->
+                    <!--                    </div>-->
+
+
+                    <div class="checkout-wrapper">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="checkout-payment-area">
+                                    <div class="checkout-total mt20">
+                                        <h3>Your order</h3>
+                                        <div class="alert alert-success mb-20">
+                                            <h4>🎉 Thank You! Your Order Has Been Placed Successfully.</h4>
+                                            <p>Order ID: <strong>#{{ order.id }}</strong></p>
+                                        </div>
+                                        <div class="table-responsive">
+                                            <table class="checkout-area table">
+                                                <thead>
+                                                <tr class="cart_item check-heading">
+                                                    <td class="ctg-type"> Product</td>
+                                                    <td class="cgt-des"> Total</td>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+
+                                                {% for i in order.items.all%}
+                                                <tr class="cart_item check-item prd-name">
+                                                    <td class="ctg-type">{{i.product.name }} ×
+                                                        <span>{{ i.quantity }}</span></td>
+                                                    <td class="cgt-des">₹{{ i.subtotal }}</td>
+                                                </tr>
+                                                {% endfor %}
+
+                                                <tr class="cart_item">
+                                                    <td class="ctg-type">Subtotal</td>
+                                                    <td class="cgt-des">₹{{ order.subtotal }}</td>
+                                                </tr>
+
+                                                <tr class="cart_item">
+                                                    <td class="ctg-type">Shipping</td>
+                                                    <td class="cgt-des">₹{{ order.shipping }}</td>
+                                                </tr>
+
+                                                <tr class="cart_item">
+                                                    <td class="ctg-type crt-total"> Total
+                                                    </td>
+                                                    <td class="cgt-des prc-total">
+                                                        ₹{{ order.total }}
+                                                    </td>
+                                                </tr>
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                    <div class="payment-section mt-20 clearfix">
+
+                                        <div class="pay-toggle">
+
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--cart-checkout-area end-->
+
+{% endblock %}

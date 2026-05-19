@@ -1,0 +1,72 @@
+{%extends 'base.html' %}
+{% load static %}
+{% block content%}
+        <!-- End of header area -->
+<style>
+
+button.btn-def.btn2 {
+    background: #333;
+    border: none;
+    color: #fff;
+    height: 35px;
+    line-height: 33px;
+    padding: 0 15px;
+    font-size: 14px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    cursor: pointer;
+}
+
+button.btn-def.btn2:hover {
+    background: #000;
+}
+</style>
+        <!--breadcumb area start -->
+        <div class="breadcumb-area overlay pos-rltv">
+            <div class="bread-main">
+                <div class="bred-hading text-center">
+                    <h5>Login Register</h5> </div>
+                <ol class="breadcrumb">
+                    <li class="home"><a title="Go to Home Page" href="/">Home</a></li>
+                    <li class="active">Login</li>
+                </ol>
+            </div>
+        </div>
+        <!--breadcumb area end -->
+        
+        <!-- Account Area Start -->
+        <div class="account-area ptb-80">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-8 lr2">
+                        <form method="post" class="login-side">
+                            {% csrf_token %}
+                            <div class="login-reg">
+                                <h3>Login</h3>
+                                <div class="input-box mb-20">
+                                    <label class="control-label">Username</label>
+                                    <input type="text" placeholder="Username" value="" name="username" class="info">
+                                </div>
+                                <div class="input-box">
+                                    <label class="control-label">Password</label>
+                                    <input type="password" placeholder="Password" value="" name="password" class="info">
+                                </div>
+                            </div>
+                            <div class="frm-action">
+                                <div class="input-box tci-box">
+                                <button type="submit" class="btn-def btn2">Login</button>
+                                </div>
+                                <span>
+                             <input class="remr" type="checkbox"> Remember me 
+                         </span>
+                                <a href="/" class="forgotten forg">Forgotten Password</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Account Area End -->
+
+       {%endblock%}

@@ -1,0 +1,699 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block content %}
+
+
+
+
+<style>
+    .btn-inline {
+        background: #333;
+        border: none;
+        color: #fff;
+        height: 35px;
+        line-height: 33px;
+        padding: 0 15px;
+        font-size: 14px;
+        font-weight: bold;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        cursor: pointer;
+        transition: 0.3s ease;
+    }
+
+    .btn-inline:hover {
+        background: #ff6a00;
+    }
+</style>
+
+
+<!--breadcumb area start -->
+<div class="breadcumb-area overlay pos-rltv" style="background-image: url(' {% static 'images/bg/breadcumb2.jpg'%}');
+            background-size: cover;
+            background-position: center;">
+    <div class="bread-main">
+        <div class="bred-hading text-center">
+            <h5>Cart Details</h5>
+        </div>
+        <ol class="breadcrumb">
+            <li class="home"><a title="Go to Home Page" href="/">Home</a></li>
+            <li class="active">Cart</li>
+        </ol>
+    </div>
+</div>
+<!--breadcumb area end -->
+
+<!--cart-checkout-area start -->
+<div class="cart-checkout-area  pt-30">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="product-area">
+                    <div class="title-tab-product-category row">
+                        <div class="col-lg-12 text-center pb-60">
+                            <ul class="nav heading-style-3" role="tablist">
+                                <li role="presentation"><a class="shadow-box" href="{% url 'cart' %}"
+                                                           aria-controls="cart"
+                                                           role="tab"><span>01</span>
+                                    Shopping
+                                    cart</a></li>
+                                <li role="presentation"><a class="active shadow-box" href="{% url 'checkout' %}"
+                                                           aria-controls="checkout" role="tab"
+                                ><span>02</span>Checkout</a></li>
+                                <li role="presentation"><a class="shadow-box" href="#"
+                                                           aria-controls="complete-order" role="tab"
+                                ><span>03</span>
+                                    complete-order</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="clearfix"></div>
+                    <div class="content-tab-product-category pb-70">
+                        <!-- Tab panes -->
+                        <div class="tab-content">
+                            <div role="tabpanel" class="tab-pane  fade show active" id="cart">
+                                <!-- cart are start-->
+                                <div class="cart-page-area">
+                                    <form method="post">
+                                        {% csrf_token%}
+                                        <div class="table-responsive mb-20">
+                                            <table class="shop_table-2 cart table">
+                                                <thead>
+                                                <tr>
+                                                    <th class="product-thumbnail ">Image</th>
+                                                    <th class="product-name ">Product Name</th>
+                                                    <th class="product-price ">Unit Price</th>
+                                                    <th class="product-quantity">Quantity</th>
+                                                    <th class="product-subtotal ">Total</th>
+                                                    <th class="product-remove">Remove</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                {% for i in cart_items%}
+                                                <tr class="cart_item">
+                                                    <td class="item-img">
+                                                        <a href="/"><img src="{{ i.product.image.url }}"
+                                                                         alt="" width="80">
+                                                        </a>
+                                                    </td>
+                                                    <td class="item-title"><a href="/">{{i.product.name }}</a></td>
+                                                    <td class="item-price">{{ i.product.price }}</td>
+                                                    <td class="item-qty">
+                                                        <div class="cart-quantity">
+                                                            <div class="product-qty">
+                                                                <div class="cart-quantity">
+                                                                    <div class="cart-plus-minus" >
+                                                                        <div class="dec qtybutton" data-id="{{ i.id }}">-
+                                                                        </div>
+                                                                        <input value="{{ i.quantity }}"
+                                                                               data-id="{{ i.id }}"
+                                                                               class="cart-plus-minus-box"
+                                                                               type="number" min="1" readonly>
+                                                                        <div class="inc qtybutton" data-id="{{ i.id }}">+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </td>
+                                                    <td class="total-price">
+                                                        <span id="item-total-{{ i.id }}">₹{{ i.subtotal }}</span>
+                                                    </td>
+                                                    <td class="remove-item"><a href="{% url 'remove_cart' i.id %}"><i
+                                                            class="fa fa-trash-o"></i></a></td>
+                                                </tr>
+                                                {% endfor %}
+
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+
+                                        <div class="cart-bottom-area">
+                                            <div class="row">
+                                                <div class="col-lg-8 col-md-7">
+                                                    <div class="update-coupne-area">
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4 col-md-5">
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <!-- cart are end-->
+
+
+                            </div>
+
+                            <div role="tabpanel" class="tab-pane fade show active " id="checkout">
+                                <!-- Checkout are start-->
+                                <div class="checkout-area">
+                                    <div class="">
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="coupne-customer-area mb50">
+                                                    <div class="panel-group" id="accordion" role="tablist"
+                                                         aria-multiselectable="true">
+                                                        <div class="panel panel-checkout">
+                                                            <div class="panel-heading" role="tab"
+                                                                 id="headingTwo">
+                                                                <h4 class="panel-title">
+                                                                    <img src="{% static 'images/icons/acc.jpg' %}"
+                                                                         alt="">
+                                                                    Returning customer?
+                                                                    <a class="collapsed" role="button"
+                                                                       data-bs-toggle="collapse"
+                                                                       data-bs-parent="#accordion"
+                                                                       href="#collapseTwo"
+                                                                       aria-expanded="false"
+                                                                       aria-controls="collapseTwo">
+                                                                        Click here to login
+                                                                    </a>
+                                                                </h4>
+                                                            </div>
+                                                            <div id="collapseTwo"
+                                                                 class="panel-collapse collapse"
+                                                                 role="tabpanel"
+                                                                 aria-labelledby="headingTwo">
+                                                                <div class="panel-body">
+                                                                    <div class="sm-des pb20">
+                                                                        If you have shopped with us before,
+                                                                        please enter your details in the
+                                                                        boxes
+                                                                        below. If you are a new customer
+                                                                        please
+                                                                        proceed to the Billing & Shipping
+                                                                        section.
+                                                                    </div>
+                                                                    <div class="first-last-area">
+                                                                        <div class="input-box mtb-20">
+                                                                            <label>User Name Or
+                                                                                Email</label>
+                                                                            <input type="email"
+                                                                                   placeholder="Your Email"
+                                                                                   class="info" name="email">
+                                                                        </div>
+                                                                        <div class="input-box mb-20">
+                                                                            <label>Password</label>
+                                                                            <input type="password"
+                                                                                   placeholder="Password"
+                                                                                   class="info" name="padd">
+                                                                        </div>
+                                                                        <div class="frm-action cc-area">
+                                                                            <div class="input-box tci-box">
+                                                                                <a href="/"
+                                                                                   class="btn-def btn2">Login</a>
+                                                                            </div>
+                                                                            <span>
+                                                                                        <input type="checkbox"
+                                                                                               class="remr">
+                                                                                        Remember
+                                                                                        me
+                                                                                    </span>
+                                                                            <a class="forgotten forg"
+                                                                               href="/">Forgotten
+                                                                                Password</a>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="panel panel-checkout">
+                                                            <div class="panel-heading" role="tab"
+                                                                 id="headingThree">
+                                                                <h4 class="panel-title">
+                                                                    <img src="{% static 'images/icons/acc.jpg' %}"
+                                                                         alt="">
+                                                                    Have A Coupon?
+                                                                    <a class="collapsed" role="button"
+                                                                       data-bs-toggle="collapse"
+                                                                       data-bs-parent="#accordion"
+                                                                       href="#collapseThree"
+                                                                       aria-expanded="false"
+                                                                       aria-controls="collapseThree">
+                                                                        Click here to enter your code
+                                                                    </a>
+                                                                </h4>
+                                                            </div>
+                                                            <div id="collapseThree"
+                                                                 class="panel-collapse collapse"
+                                                                 role="tabpanel"
+                                                                 aria-labelledby="headingThree">
+                                                                <div class="panel-body coupon-body">
+
+                                                                    <div class="first-last-area">
+                                                                        <div class="input-box mtb-20">
+                                                                            <input type="text"
+                                                                                   placeholder="Coupon Code"
+                                                                                   class="info" name="code">
+                                                                        </div>
+                                                                        <div class="frm-action">
+                                                                            <div class="input-box tci-box">
+                                                                                <a href="/"
+                                                                                   class="btn-def btn2">Apply
+                                                                                    Coupon</a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <form method="post" action="{% url 'checkout'  %}" id="checkoutForm">
+                                                    {% csrf_token%}
+                                                    <div class="row">
+
+                                                        <div class="col-lg-6">
+                                                            <div class="billing-details">
+                                                                <div class="contact-text right-side">
+                                                                    <h2>Billing Details</h2>
+
+
+                                                                    <div class="row">
+                                                                        <div class="col-lg-6 col-md-6">
+                                                                            <div class="input-box mb-20"><label>First
+                                                                                Name
+                                                                                <em>*</em></label>
+                                                                                <input type="text"
+                                                                                       name="first_name" class="info"
+                                                                                       placeholder="First Name"
+                                                                                       required>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-lg-6 col-md-6">
+                                                                            <div class="input-box mb-20">
+                                                                                <label>Last
+                                                                                    Name<em>*</em></label>
+                                                                                <input type="text"
+                                                                                       name="last_name" class="info"
+                                                                                       placeholder="Last Name" required>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-lg-12">
+                                                                            <div class="input-box mb-20">
+                                                                                <label>Company Name</label>
+                                                                                <input type="text"
+                                                                                       name="company"
+                                                                                       class="info"
+                                                                                       placeholder="Company Name">
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col-md-6">
+                                                                            <div class="input-box mb-20">
+                                                                                <label>Email
+                                                                                    Address<em>*</em></label>
+                                                                                <input type="email"
+                                                                                       name="email"
+                                                                                       class="info"
+                                                                                       placeholder="Your Email" required>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <div class="input-box mb-20">
+                                                                                <label>Phone
+                                                                                    Number<em>*</em></label>
+                                                                                <input type="text"
+                                                                                       name="phone"
+                                                                                       class="info"
+                                                                                       placeholder="Phone Number" required>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col-lg-12">
+                                                                            <div class="input-box mb-20">
+                                                                                <label>Country
+                                                                                    <em>*</em></label>
+                                                                                <select name="country"
+                                                                                        class="selectpicker select-custom"
+                                                                                        data-live-search="true"
+                                                                                        required>
+                                                                                    <option
+                                                                                            data-tokens="Bangladesh">
+                                                                                        Bangladesh
+                                                                                    </option>
+                                                                                    <option
+                                                                                            data-tokens="India">
+                                                                                        India
+                                                                                    </option>
+                                                                                    <option
+                                                                                            data-tokens="Pakistan">
+                                                                                        Pakistan
+                                                                                    </option>
+                                                                                    <option
+                                                                                            data-tokens="Pakistan">
+                                                                                        Pakistan
+                                                                                    </option>
+                                                                                    <option
+                                                                                            data-tokens="Srilanka">
+                                                                                        Srilanka
+                                                                                    </option>
+                                                                                    <option
+                                                                                            data-tokens="Nepal">
+                                                                                        Nepal
+                                                                                    </option>
+                                                                                    <option
+                                                                                            data-tokens="Butan">
+                                                                                        Butan
+                                                                                    </option>
+                                                                                    <option
+                                                                                            data-tokens="USA">
+                                                                                        USA
+                                                                                    </option>
+                                                                                    <option
+                                                                                            data-tokens="England">
+                                                                                        England
+                                                                                    </option>
+                                                                                    <option
+                                                                                            data-tokens="Brazil">
+                                                                                        Brazil
+                                                                                    </option>
+                                                                                    <option
+                                                                                            data-tokens="Canada">
+                                                                                        Canada
+                                                                                    </option>
+                                                                                    <option
+                                                                                            data-tokens="China">
+                                                                                        China
+                                                                                    </option>
+                                                                                    <option
+                                                                                            data-tokens="Koeria">
+                                                                                        Koeria
+                                                                                    </option>
+                                                                                    <option
+                                                                                            data-tokens="Soudi">
+                                                                                        Soudi Arabia
+                                                                                    </option>
+                                                                                    <option
+                                                                                            data-tokens="Spain">
+                                                                                        Spain
+                                                                                    </option>
+                                                                                    <option
+                                                                                            data-tokens="France">
+                                                                                        France
+                                                                                    </option>
+                                                                                </select>
+
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col-lg-12">
+                                                                            <div class="input-box mb-20">
+                                                                                <label>Address
+                                                                                    <em>*</em></label>
+                                                                                <input type="text"
+                                                                                       name="add1"
+                                                                                       class="info mb-10"
+                                                                                       placeholder="Street Address">
+                                                                                <input type="text"
+                                                                                       name="add2"
+                                                                                       class="info mt10"
+                                                                                       placeholder="Apartment, suite, unit etc. (optional)" required>
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-lg-12">
+                                                                            <div class="input-box mb-20">
+                                                                                <label>Town/City
+                                                                                    <em>*</em></label>
+                                                                                <input type="text"
+                                                                                       name="city" class="info"
+                                                                                       placeholder="Town/City" required>
+                                                                            </div>
+                                                                        </div>
+
+                                                                        <div class="col-md-6">
+                                                                            <div class="input-box">
+                                                                                <label>State/Divison
+                                                                                    <em>*</em></label>
+                                                                                <select name="state"
+                                                                                        class="selectpicker select-custom"
+                                                                                        data-live-search="true">
+                                                                                    <option
+                                                                                            data-tokens="Barisal">
+                                                                                        Barisal
+                                                                                    </option>
+                                                                                    <option
+                                                                                            data-tokens="Dhaka">
+                                                                                        Dhaka
+                                                                                    </option>
+                                                                                    <option
+                                                                                            data-tokens="Kulna">
+                                                                                        Kulna
+                                                                                    </option>
+                                                                                    <option
+                                                                                            data-tokens="Rajshahi">
+                                                                                        Rajshahi
+                                                                                    </option>
+                                                                                    <option
+                                                                                            data-tokens="Sylet">
+                                                                                        Sylet
+                                                                                    </option>
+                                                                                    <option
+                                                                                            data-tokens="Chittagong">
+                                                                                        Chittagong
+                                                                                    </option>
+                                                                                    <option
+                                                                                            data-tokens="Rangpur">
+                                                                                        Rangpur
+                                                                                    </option>
+                                                                                    <option
+                                                                                            data-tokens="Maymanshing">
+                                                                                        Maymanshing
+                                                                                    </option>
+                                                                                    <option
+                                                                                            data-tokens="Cox">
+                                                                                        Cox's Bazar
+                                                                                    </option>
+                                                                                    <option
+                                                                                            data-tokens="Saint">
+                                                                                        Saint Martin
+                                                                                    </option>
+                                                                                    <option
+                                                                                            data-tokens="Kuakata">
+                                                                                        Kuakata
+                                                                                    </option>
+                                                                                    <option
+                                                                                            data-tokens="Sajeq">
+                                                                                        Sajeq
+                                                                                    </option>
+                                                                                </select>
+
+                                                                            </div>
+                                                                        </div>
+                                                                        <div class="col-md-6">
+                                                                            <div class="input-box">
+                                                                                <label>Post Code/Zip
+                                                                                    Code<em>*</em></label>
+                                                                                <input type="text"
+                                                                                       name="zipcode"
+                                                                                       class="info"
+                                                                                       placeholder="Zip Code" required>
+                                                                            </div>
+                                                                        </div>
+
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="col-lg-6">
+                                                            <div class="billing-details">
+                                                                <div class="right-side">
+                                                                    <div class="ship-acc clearfix">
+                                                                        <div class="ship-toggle pb20">
+                                                                            <input type="checkbox"
+                                                                                   id="ship-toggle">
+                                                                            <label for="ship-toggle">Ship to a
+                                                                                different address?</label>
+                                                                        </div>
+                                                                        <div class="ship-acc-body">
+
+
+                                                                        </div>
+                                                                        <div class="form">
+                                                                            <div class="input-box">
+                                                                                <label>Order Notes</label>
+                                                                                <textarea name="order_notes"
+                                                                                          placeholder="Notes about your order, e.g. special notes for delivery."
+                                                                                          class="area-tex"></textarea>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div class="checkout-payment-wrapper mt-40">
+                                                            <div class="row">
+                                                                <div class="col-lg-12">
+                                                                    <div class="checkout-payment-area">
+                                                                        <div class="checkout-total mt20">
+                                                                            <h3>Your order</h3>
+
+                                                                            <div class="table-responsive">
+                                                                                <table class="checkout-area table">
+                                                                                    <thead>
+                                                                                    <tr class="cart_item check-heading">
+                                                                                        <td class="ctg-type"> Product
+                                                                                        </td>
+                                                                                        <td class="cgt-des"> Total</td>
+                                                                                    </tr>
+                                                                                    </thead>
+                                                                                    <tbody>
+
+                                                                                    {% for i in cart_items %}
+                                                                                    <tr class="cart_item check-item prd-name">
+                                                                                        <td class="ctg-type">
+                                                                                            {{i.product.name}}
+                                                                                            <span>{{ i.quantity }}</span>
+                                                                                        </td>
+                                                                                        <td class="cgt-des">
+                                                                                            ₹{{i.subtotal}}
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    {% endfor %}
+
+
+                                                                                    <tr class="cart_item">
+                                                                                        <td class="ctg-type"> Subtotal
+                                                                                        </td>
+                                                                                        <td class="cgt-des">₹{{subtotal}}</td>                                                                                      </td>
+                                                                                    </tr>
+                                                                                    <input type="hidden"
+                                                                                           id="subtotal-amount"
+                                                                                           value="{{ subtotal }}">
+
+                                                                                    <tr class="cart_item">
+                                                                                        <td class="ctg-type">Shipping
+                                                                                        </td>
+                                                                                        <td class="cgt-des ship-opt">
+                                                                                            <div class="shipp">
+                                                                                                <input type="radio"
+                                                                                                       id="pay-toggle"
+                                                                                                       name="shipping"
+                                                                                                       value="295"
+                                                                                                       checked>
+
+                                                                                                <label for="pay-toggle">Flat
+                                                                                                    Rate:
+                                                                                                    <span>₹295</span></label>
+                                                                                            </div>
+                                                                                            <div class="shipp">
+                                                                                                <input type="radio"
+                                                                                                       id="pay-toggle2"
+                                                                                                       name="shipping"
+                                                                                                       value="0"
+                                                                                                       onclick="updateTotal()">
+                                                                                                <label for="pay-toggle2">Free
+                                                                                                    Shipping</label>
+                                                                                            </div>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    <tr class="cart_item">
+                                                                                        <td class="ctg-type crt-total">
+                                                                                            Total
+                                                                                        </td>
+                                                                                        <td class="cgt-des prc-total">
+                                                                                            ₹<span id="grand-total">{{ total }}</span>
+                                                                                        </td>
+                                                                                    </tr>
+                                                                                    </tbody>
+                                                                                </table>
+                                                                            </div>
+
+                                                                        </div>
+                                                                        <div class="payment-section mt-20 clearfix">
+                                                                            <div class="pay-toggle">
+
+                                                                                <div class="pay-type-total">
+                                                                                    <div class="pay-type">
+                                                                                        <input type="radio"
+                                                                                               id="pay-toggle01"
+                                                                                               name="payment"
+                                                                                               value="bank">
+                                                                                        <label for="pay-toggle01">Direct
+                                                                                            Bank
+                                                                                            Transfer</label>
+                                                                                    </div>
+                                                                                    <div class="pay-type">
+                                                                                        <input type="radio"
+                                                                                               id="pay-toggle02"
+                                                                                               name="payment"
+                                                                                               value="cheque">
+                                                                                        <label for="pay-toggle02">Cheque
+                                                                                            Payment</label>
+                                                                                    </div>
+                                                                                    <div class="pay-type">
+                                                                                        <input type="radio"
+                                                                                               id="pay-toggle03"
+                                                                                               name="payment"
+                                                                                               value="cod" required>
+                                                                                        <label for="pay-toggle03">Cash
+                                                                                            on
+                                                                                            Delivery</label>
+                                                                                    </div>
+                                                                                    <div class="pay-type">
+                                                                                        <input type="radio"
+                                                                                               id="pay-toggle04"
+                                                                                               name="payment"
+                                                                                               value="razorpay">
+                                                                                        <label for="pay-toggle04">Pay with Razorpay</label>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <!-- Submit Button -->
+                                                                                <div class="col-lg-12 mt-20">
+                                                                                    <button type="submit" id="placeOrderBtn"
+                                                                                            class="btn-def btn2"
+                                                                                            style="
+                                                                                                   background-color:#333;
+                                                                                                   color:white;
+                                                                                                   padding:12px 30px;
+                                                                                                   border:none;
+                                                                                                   border-radius:5px;
+                                                                                                   font-size:16px;
+                                                                                                   cursor:pointer;
+                                                                                                   font-weight:600;"
+
+                                                                                            onmouseover="this.style.backgroundColor='#ff6a00'"
+                                                                                            onmouseout="this.style.backgroundColor='black'"
+                                                                                            onmousedown="this.style.transform='scale(0.97)'"
+                                                                                            onmouseup="this.style.transform='scale(1)'">
+                                                                                        Place Order
+                                                                                    </button>
+                                                                                </div>
+
+                                                                            </div>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Checkout are end-->
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!--cart-checkout-area end-->
+<!--<script src="https://checkout.razorpay.com/v1/checkout.js"></script>-->
+
+
+{% endblock %}
